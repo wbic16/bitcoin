@@ -1,0 +1,2 @@
+* Look for cases where std::unordered_map can replace std::map
+** src/addrman.h: CAddrMan::mapInfo, mapAddr

@@ -1,0 +1,4 @@
+* References are noted with the variable
+** not followed well
+* Not using C++11 semantics?
+* Protected methods end in '_'
