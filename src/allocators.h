@@ -47,9 +47,10 @@ public:
     // For all pages in affected range, increase lock count
     void LockRange(void* p, size_t size)
     {
-        boost::mutex::scoped_lock lock(mutex);
-        if (!size)
+        if (!size) {
             return;
+        }
+        boost::mutex::scoped_lock lock(mutex);
         const size_t base_addr = reinterpret_cast<size_t>(p);
         const size_t start_page = base_addr & page_mask;
         const size_t end_page = (base_addr + size - 1) & page_mask;
@@ -69,9 +70,10 @@ public:
     // For all pages in affected range, decrease lock count
     void UnlockRange(void* p, size_t size)
     {
-        boost::mutex::scoped_lock lock(mutex);
-        if (!size)
+        if (!size) {
             return;
+        }
+        boost::mutex::scoped_lock lock(mutex);
         const size_t base_addr = reinterpret_cast<size_t>(p);
         const size_t start_page = base_addr & page_mask;
         const size_t end_page = (base_addr + size - 1) & page_mask;
@@ -174,8 +176,9 @@ void LockObject(const T& t)
 template <typename T>
 void UnlockObject(const T& t)
 {
-    OPENSSL_cleanse((void*)(&t), sizeof(T));
-    LockedPageManager::Instance().UnlockRange((void*)(&t), sizeof(T));
+    void* temp = (void*)&t;
+    OPENSSL_cleanse(temp, sizeof(T));
+    LockedPageManager::Instance().UnlockRange(temp, sizeof(T));
 }
 
 //
@@ -209,16 +212,18 @@ struct secure_allocator : public std::allocator<T> {
     {
         T* p;
         p = std::allocator<T>::allocate(n, hint);
-        if (p != NULL)
+        if (p != NULL) {
             LockedPageManager::Instance().LockRange(p, sizeof(T) * n);
+        }
         return p;
     }
 
     void deallocate(T* p, std::size_t n)
     {
         if (p != NULL) {
-            OPENSSL_cleanse(p, sizeof(T) * n);
-            LockedPageManager::Instance().UnlockRange(p, sizeof(T) * n);
+            const int size = sizeof(T) * n;
+            OPENSSL_cleanse(p, size);
+            LockedPageManager::Instance().UnlockRange(p, size);
         }
         std::allocator<T>::deallocate(p, n);
     }

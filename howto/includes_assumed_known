@@ -1,4 +1,10 @@
+boost/foreach.hpp
+boost/thread/mutex.hpp
+boost/thread/once.hpp
 map
+openssl/crypto.h
 set
 stdint.h
+stdlib.h
+string
 vector

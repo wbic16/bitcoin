@@ -1,15 +1,35 @@
-./src/addrman.h
- - Defines CAddrInfo and CAddrMan, the 'Stochastic address manager'.
- - Needs C++11 iterator treatment.
- - Has some goofy bracing.
+./src/addrman.h [Wuille]
+ - Defines: CAddrInfo and CAddrMan
+ - Summary: The 'Stochastic address manager'.
 
-./src/alert.h
-./src/allocators.h
-./src/amount.h
-./src/base58.h
-./src/bloom.h
-./src/chain.h
-./src/chainparams.h
+./src/alert.h [Nakamoto]
+ - Defines: CUnsignedAlert, CAlert
+ - Summary: Defines a mechanism for alerting old versions that upgrades are available.
+
+./src/allocators.h [Nakamoto]
+ - Defines: LockedPageManagerBase, MemoryPageLocker, LockedPageManager, secure_allocator, zero_after_free_allocator, SecureString, CSerializeData
+ - Summary: Code that tracks locked memory pages.
+
+./src/amount.h [Nakamoto]
+ - Defines: CAmount and CFeeRate
+ - Summary: The 21-million BTC limit and tx fees.
+
+./src/base58.h [Nakamoto]
+ - Defines: EncodeBase58 and DecodeBase58 variants, CBase58Data, CBitcoinAddress, CBitcoinSecret, CBitcoinExtKeyBase, CBitcoinExtKey, CBitcoinExtPubKey
+ - Summary: Bitcoin address encoding and decoding.
+
+./src/bloom.h [Core]
+ - Defines: CBloomFilter
+ - Summary: Efficient transaction and block downloads.
+
+./src/chain.h [Nakamoto]
+ - Defines: CDiskBlockPos, BlockStatus, CBlockIndex, CDiskBlockIndex, CChain
+ - Summary: Basic block-chain data structures.
+
+./src/chainparams.h [Nakamoto]
+ - Defines: CDNSSeedData, CChainParams, CModifiableParams
+ - Summary: Exposes ways to manage main, test and regtest networks.
+
 ./src/chainparamsbase.h
 ./src/chainparamsseeds.h
 ./src/checkpoints.h

@@ -1,1 +1,16 @@
-* Will C++11's auto be used for iterators?
+General
+=======
+Q: Are we going to work towards C++11 support?
+
+allocators.h
+============
+Q: Why do we include include string and string.h? Shouldn't it include cstring?
+
+bloom.h
+=======
+Q1: Why does CBloomFilter have isFull and isEmpty versus a simple comparison?
+Q2: Shouldn't nTweak be removed if it is only exposed for unit testing?
+
+chain.h
+=======
+Q: Does the validity of operator== depend upon chaining? "Efficiency" mentioned a lot.
